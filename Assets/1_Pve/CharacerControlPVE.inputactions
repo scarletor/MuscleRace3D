@@ -1,0 +1,33 @@
+{
+    "name": "CharacerControlPVE",
+    "maps": [
+        {
+            "name": "PlayerPVE",
+            "id": "4f1f6410-58bd-4228-937f-c9ea18561cd7",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "72b7c4e6-67df-4ccb-8b64-375b7184bc38",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3345bf07-51f9-49a0-abae-65b7e24bd83d",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
