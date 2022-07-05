@@ -27,7 +27,10 @@ public class UIManager : MonoBehaviour
 
 
 
-
+    public void OnClickSkinBtn()
+    {
+        SceneManager.LoadScene("Skin");
+    }
 
 
 

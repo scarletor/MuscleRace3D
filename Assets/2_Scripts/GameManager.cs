@@ -2,19 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-
+using UnityEngine;
+using UnityEngine.Events;
+using Sirenix.OdinInspector;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
+using DG.Tweening;
+using TMPro;
+using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameObject curChar;
     void Start()
     {
-
+        Debug.LogError(gameObject);
+        RefreshCurChar();
     }
 
-    // Update is called once per frame
-    void Update()
+    [Button]
+    public void OnClickBack()
     {
-
+        SceneManager.LoadScene("Play");
     }
 
 
@@ -26,6 +36,30 @@ public class GameManager : MonoBehaviour
     }
 
 
+
+    public GameObject charsParent;
+    public void RefreshCurChar()
+    {
+        var charName = PlayerPrefs.GetString("curChar");
+        if (charName == "") return;
+
+
+        foreach (Transform child in charsParent.transform)
+        {
+            if (child.name == charName)
+            {
+                child.gameObject.SetActive(true);
+            }
+            else
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+
+
+
+
+    }
 
 
     public bool isStopGame;

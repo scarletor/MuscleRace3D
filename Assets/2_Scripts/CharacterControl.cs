@@ -47,12 +47,14 @@ public class CharacterControl : MonoBehaviour
     public Rigidbody _rigid;
     void Update()
     {
-        MoveByJoyStick();
         Paint(); //ground 1
         PaintBridge(); //ground 2
         LosePaint();  // ground 3
     }
-
+    private void FixedUpdate()
+    {
+        MoveByJoyStick();
+    }
 
     public bool canMove;
     public void MoveByJoyStick()
@@ -289,7 +291,7 @@ public class CharacterControl : MonoBehaviour
                 if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground3.transform;
                 if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground3.transform;
                 if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground3.transform;
-              
+
 
                 //rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
                 distance = Vector3.Distance(rdPos.transform.position, transform.position);
@@ -419,7 +421,7 @@ public class CharacterControl : MonoBehaviour
 
 
 
-    
+
 
 
 
@@ -526,7 +528,7 @@ public class CharacterControl : MonoBehaviour
     public int inkCount;
     public bool GetInk(GameObject ink)
     {
-        if (inkCount > inkContainer.transform.childCount) return false;
+        if (inkCount == inkContainer.transform.childCount) return false;
         if (_anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Fall") return false;
 
         ink.GetComponent<MoveToPos>().posToMoveBackPlayer = inkContainer.transform.GetChild(inkCount).gameObject;
@@ -743,7 +745,7 @@ public class CharacterControl : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 var tempi = i;
 
-                if (finalPaintHide[finalPaintHide.Count-1] == null)
+                if (finalPaintHide[finalPaintHide.Count - 1] == null)
                 {
                     Debug.LogError("!!!");
                     GameManager.ins.PlayerWin();

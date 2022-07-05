@@ -16,10 +16,10 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-
+    public int spawn2_red, spawn2_blue, spawn2_green, spawn2_pink, spawn3_red, spawn3_pink, spawn3_blue, spawn3_green;
 
     public GameObject demo, inkSpawnPosGr, blueInk, redInk, greenInk, pinkInk, inkSpawnPosGr2, inkSpawnPosGr3;
-    public List<GameObject>inkBase, inks, inks2, inks3;
+    public List<GameObject> inkBase, inks, inks2, inks3;
     private void Start()
     {
         Spawn1();
@@ -57,12 +57,19 @@ public class SpawnManager : MonoBehaviour
         {
             CancelInvoke("SpawnInteval1");
         }
-        var newInk = Instantiate(inks[Random.Range(0, inks.Count)], transform, true);
-
+        if (inks.Count == 0) return;
         var rdPos = inkSpawnPosGr.transform.GetChild(Random.Range(0, inkSpawnPosGr.transform.childCount - 1));
+        if (rdPos.transform.childCount != 0) return;
+
+        var newInk = inks[Random.Range(0, inks.Count)];
+
+
+
+        newInk = Instantiate(inks[Random.Range(0, inks.Count)], transform, true);
+
 
         newInk.transform.position = rdPos.transform.position;
-
+        newInk.transform.SetParent(rdPos.transform);
         spawned++;
     }
 
@@ -88,11 +95,32 @@ public class SpawnManager : MonoBehaviour
         {
             CancelInvoke("SpawnInteval2");
         }
-        var newInk = Instantiate(inks2[Random.Range(0, inks2.Count)], transform, true);
-
         var rdPos = inkSpawnPosGr2.transform.GetChild(Random.Range(0, inkSpawnPosGr2.transform.childCount - 1));
+        if (rdPos.transform.childCount != 0) return;
+
+        var newInk = inks2[Random.Range(0, inks2.Count)];
+        if (newInk == redInk) spawn2_red++;
+        if (newInk == blueInk) spawn2_blue++;
+        if (newInk == greenInk) spawn2_green++;
+        if (newInk == pinkInk) spawn2_pink++;
+        if (spawn2_red >= 25) inks2.Remove(redInk);
+        if (spawn2_blue >= 25) inks2.Remove(blueInk);
+        if (spawn2_green >= 25) inks2.Remove(greenInk);
+        if (spawn2_pink >= 25) inks2.Remove(pinkInk);
+
+
+
+
+
+
+        newInk = Instantiate(inks2[Random.Range(0, inks2.Count)], transform, true);
+
+
+
+
 
         newInk.transform.position = rdPos.transform.position;
+        newInk.transform.SetParent(rdPos.transform);
 
         spawned2++;
     }
