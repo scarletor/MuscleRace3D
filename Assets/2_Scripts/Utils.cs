@@ -95,7 +95,22 @@ public class Utils : MonoBehaviour
     }
 
 
-
+    public int avgFrameRate;
+    public Text display_Text;
+    private float currentFPS;
+    [Button]
+    public void UpdateFPS()
+    {
+        currentFPS = (int)(1f / Time.unscaledDeltaTime);
+        avgFrameRate = (int)currentFPS;
+        display_Text.text = avgFrameRate.ToString() + " FPS";
+    }
+    private void Start()
+    {
+        if (display_Text == null) return;
+        if (display_Text.gameObject.activeInHierarchy == false) return;
+        InvokeRepeating("UpdateFPS", 1, 1);
+    }
 
 
 }
