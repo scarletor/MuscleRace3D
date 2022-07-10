@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/5_Scene/Skin.unity
     guid: e27bb320232603249bd75e785a02a999
+  - enabled: 1
+    path: Assets/5_Scene/SharedScene.unity
+    guid: 376c5a2af61987e4abdd9c9929f81395
   m_configObjects: {}

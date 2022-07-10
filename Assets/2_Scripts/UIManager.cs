@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         ins = this;
+        SceneManager.LoadScene("SharedScene", LoadSceneMode.Additive);
     }
 
 
@@ -41,18 +42,24 @@ public class UIManager : MonoBehaviour
     }
 
 
-    
+
 
     public void OnLose()
     {
 
     }
 
-
+    public Text levelText;
+    public void Setup()
+    {
+        initPosYTopanel = SharedScene.ins.topPanel.transform.position.y;
+        levelText.text = "Level " + UserData.GetCurLevel();
+        SharedScene.ins.ActiveKeyGr();
+    }
 
     private void Start()
     {
-        initPosYTopanel = topPanel.transform.position.y;
+        Setup();
     }
 
 
@@ -62,7 +69,7 @@ public class UIManager : MonoBehaviour
     public void DisplayWinUI()
     {
         winUI.SetActive(true);
-        topPanel.SetActive(true);
+        SharedScene.ins.topPanel.SetActive(true);
         var timeShow = 1;
         Utils.ins.FadeInUI(winUI);
         Utils.ins.DelayCall(timeShow, () =>
@@ -71,22 +78,21 @@ public class UIManager : MonoBehaviour
             PointerShake();
         });
     }
-    
 
 
 
 
-    public GameObject topPanel;
+
     [Button]
     public void TopPanelIn()
     {
-        topPanel.transform.DOMoveY(initPosYTopanel, 1);
+        SharedScene.ins.topPanel.transform.DOMoveY(initPosYTopanel, 1);
     }
 
     [Button]
     public void TopPanelOut()
     {
-        topPanel.transform.DOMoveY(initPosYTopanel + 500, 1);
+        SharedScene.ins.topPanel.transform.DOMoveY(initPosYTopanel + 500, 1);
     }
     public float initPosYTopanel;
 
@@ -228,7 +234,7 @@ public class UIManager : MonoBehaviour
         homeUI.gameObject.SetActive(false);
     }
 
-    
+
 
 
 }

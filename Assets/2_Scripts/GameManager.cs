@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     public static GameObject curChar;
     void Start()
     {
-        Debug.LogError(gameObject);
         RefreshCurChar();
     }
 
