@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
-
+using System;
 public class Utils : MonoBehaviour
 {
     public static Utils ins;
@@ -113,4 +113,17 @@ public class Utils : MonoBehaviour
     }
 
 
+    [Button]
+    public void IncreaseNumEff(Text text,int value)
+    {
+        var curValue = Int32.Parse(text.text);
+
+
+        int endTweenValue = curValue + value;
+        DOTween.To(() => curValue, x => curValue = x, endTweenValue, 2)
+           .OnUpdate(() =>
+           {
+               text.text = "" + curValue;
+           });
+    }
 }

@@ -16,7 +16,12 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetInt(gold, value);
         SharedScene.ins.RefreshGoldText();
     }
-
+    public static void SetGoldMore(int value)
+    {
+        var goldValue = GetGold();
+        goldValue += value;
+        PlayerPrefs.SetInt(gold, goldValue);
+    }
 
 
 
@@ -42,7 +47,13 @@ public class UserData : MonoBehaviour
             SetCurLevel(1);
         }
         return PlayerPrefs.GetInt(curLevel);
+    }
 
+    public static void SetCurLevelIncrease()
+    {
+        var curLevelValue = GetCurLevel();
+        curLevelValue++;
+        PlayerPrefs.SetInt(curLevel, curLevelValue);
     }
 
     public static void SetCurLevel(int value)
@@ -55,11 +66,6 @@ public class UserData : MonoBehaviour
     {
         PlayerPrefs.SetString(UserData.unlockChar + charName, "true");
     }
-
-
-
-
-
 
 
     public static void SetCurChar(string charName)

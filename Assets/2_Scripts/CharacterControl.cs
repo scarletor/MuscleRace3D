@@ -11,7 +11,7 @@ using Cinemachine;
 public class CharacterControl : MonoBehaviour
 {
 
-
+    public GameObject inkDropParticle;
 
     public GameObject inkPosList;
     public void SetupOtherStick()
@@ -404,6 +404,8 @@ public class CharacterControl : MonoBehaviour
         inkFlyEff.transform.DOMove(paintHideLeft[paintHideLeft.Count - 1].transform.position, 0.2f);
         Utils.ins.DelayCall(0.2f, () =>
         {
+            var inkDropEff = Instantiate(inkDropParticle);
+            inkDropEff.transform.position = inkFlyEff.transform.position;
             Destroy(inkFlyEff);
             Destroy(paintHideLeft[paintHideLeft.Count - 1].gameObject);
             if (paintHideLeft.Count == 0)
@@ -465,6 +467,8 @@ public class CharacterControl : MonoBehaviour
         inkFlyEff.transform.DOMove(myPaintBridge.transform.position, 0.2f);
         Utils.ins.DelayCall(0.2f, () =>
         {
+            var inkDropEff = Instantiate(inkDropParticle);
+            inkDropEff.transform.position = inkFlyEff.transform.position;
             Destroy(inkFlyEff);
             var oldScale = myPaintBridge.transform.localScale;
             oldScale.z += 0.05f;
@@ -768,6 +772,8 @@ public class CharacterControl : MonoBehaviour
 
                 inkFlyEff.transform.DOMove(finalPaintHide[tempi].transform.position, 0.2f).OnComplete(() =>
                 {
+                    var inkDropEff = Instantiate(inkDropParticle);
+                    inkDropEff.transform.position = inkFlyEff.transform.position;
                     Destroy(inkFlyEff);
                     Destroy(finalPaintHide[tempi].gameObject);
                 });

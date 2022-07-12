@@ -935,6 +935,7 @@ MonoBehaviour:
   topPanel: {fileID: 2000877477}
   goldText: {fileID: 1447942273}
   keyGr: {fileID: 362430581}
+  goldPos: {fileID: 1512831314}
 --- !u!4 &2079566965
 Transform:
   m_ObjectHideFlags: 0

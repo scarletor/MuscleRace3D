@@ -19,7 +19,7 @@ public class SharedScene : MonoBehaviour
 
     public GameObject topPanel;
     public Text goldText;
-    public GameObject keyGr;
+    public GameObject keyGr,goldPos;
 
     void Start()
     {

@@ -40,7 +40,11 @@ public class GameManager : MonoBehaviour
     public void RefreshCurChar()
     {
         var charName = PlayerPrefs.GetString("curChar");
-        if (charName == "") return;
+        if (charName == "")
+        {
+            PlayerPrefs.SetString("curChar", "Stickman");
+            charName = PlayerPrefs.GetString("curChar");
+        }
 
 
         foreach (Transform child in charsParent.transform)

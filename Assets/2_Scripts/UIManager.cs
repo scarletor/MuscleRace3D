@@ -36,18 +36,6 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void OnClickPlayBtn()
-    {
-
-    }
-
-
-
-
-    public void OnLose()
-    {
-
-    }
 
     public Text levelText;
     public void Setup()
@@ -69,6 +57,9 @@ public class UIManager : MonoBehaviour
     public void DisplayWinUI()
     {
         winUI.SetActive(true);
+        UserData.SetCurLevelIncrease();
+        UserData.SetGoldMore(250);
+        GoldEff(250);
         SharedScene.ins.topPanel.SetActive(true);
         var timeShow = 1;
         Utils.ins.FadeInUI(winUI);
@@ -213,6 +204,8 @@ public class UIManager : MonoBehaviour
     public void OnPlayerLose_UI()
     {
         Utils.ins.FadeInUI(loseUI);
+        UserData.SetGoldMore(100);
+        GoldEff(100);
     }
 
 
@@ -235,6 +228,38 @@ public class UIManager : MonoBehaviour
     }
 
 
+
+
+    public GameObject goldPref, startGoldPos, endGoldPos, canvas;
+    [Button]
+    public void GoldEff(int value)
+    {
+        Utils.ins.DelayCall(2, () =>
+        {
+
+            StartCoroutine(spawn());
+
+            IEnumerator spawn()
+            {
+                var i = 0;
+                while (i < 10)
+                {
+                    i++;
+                    yield return new WaitForSeconds(0.1f);
+
+                    var newGoldEff = Instantiate(goldPref, canvas.transform);
+                    newGoldEff.transform.position = startGoldPos.transform.position;
+                    newGoldEff.transform.DOMove(SharedScene.ins.goldPos.transform.position, 1);
+                }
+            }
+
+            Utils.ins.DelayCall(1, () =>
+            {
+                Utils.ins.IncreaseNumEff(SharedScene.ins.goldText,value);
+            });
+
+        });
+    }
 
 
 }
