@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static GameObject curChar;
     void Start()
     {
+        UserData.SetGoldMore(3000);
         RefreshCurChar();
     }
 
