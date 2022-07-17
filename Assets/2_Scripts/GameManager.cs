@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
         });
     }
-
+    public List<GroundBase> grounds;
     public GameObject inkGr;
 
 

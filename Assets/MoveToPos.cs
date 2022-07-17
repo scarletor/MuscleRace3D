@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Sirenix.OdinInspector;
 public class MoveToPos : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -9,6 +9,7 @@ public class MoveToPos : MonoBehaviour
     {
 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -19,6 +20,7 @@ public class MoveToPos : MonoBehaviour
             if (Vector3.Distance(transform.position, posToMoveBackPlayer.transform.position) < 0.03f)
             {
                 gameObject.transform.SetParent(posToMoveBackPlayer.transform);
+                transform.localEulerAngles = Vector3.zero;
                 enabled = false;
                 posToMoveBackPlayer = null;
             }

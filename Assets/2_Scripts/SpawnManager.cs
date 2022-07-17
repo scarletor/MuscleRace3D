@@ -22,6 +22,7 @@ public class SpawnManager : MonoBehaviour
     public List<GameObject> inkBase, inks, inks2, inks3;
     private void Start()
     {
+        return;
         Spawn1();
         Spawn2();
         Spawn3();

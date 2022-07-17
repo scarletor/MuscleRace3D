@@ -10,8 +10,9 @@ using TMPro;
 using Cinemachine;
 public class CharacterControl : MonoBehaviour
 {
-
-    public GameObject inkDropParticle;
+    public int currentGroundIndex;
+    public GroundBase currentGround;
+    public GameObject inkDropParticle, buildBridgeInkDropPos;
 
     public GameObject inkPosList;
     public void SetupOtherStick()
@@ -25,17 +26,23 @@ public class CharacterControl : MonoBehaviour
         if (colorType == myIDEnum.Blue) charBlue = this;
         if (colorType == myIDEnum.Pink) charPink = this;
         if (colorType == myIDEnum.Green) charGreen = this;
-        if (colorType == myIDEnum.Blue) charPlayer = this;
+        if (colorType == myIDEnum.Red) charPlayer = this;
     }
 
+    private void Start()
+    {
+
+    }
     //
     //
     // Start is called before the first frame update
-    public void StartGame()
+    public void Setup()
     {
+        SetupCurGround();
         canMove = true;
         MoveByBot();
     }
+
 
     public int inkToTake;
     public bool isBot;
@@ -48,7 +55,7 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         Paint(); //ground 1
-        PaintBridge(); //ground 2
+        BuildBridge(); //ground 2
         LosePaint();  // ground 3
     }
     private void FixedUpdate()
@@ -154,45 +161,54 @@ public class CharacterControl : MonoBehaviour
 
 
 
+
+
+
+
+        var rdPos = gameObject.transform;
+        var distance = 1f;
+        var timeToMove = 1f;
+        if (inkTook.Count >= inkToTake) // move to endPoint
+        {
+            if (colorType == myIDEnum.Green) rdPos = currentGround.posGreenUnlock.transform;
+            if (colorType == myIDEnum.Blue) rdPos = currentGround.posBlueUnlock.transform;
+            if (colorType == myIDEnum.Pink) rdPos = currentGround.posPinkUnlock.transform;
+
+
+            distance = Vector3.Distance(rdPos.transform.position, transform.position);
+            timeToMove = distance / speedMoveBot;
+
+            moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+                   {
+                       _anim.SetBool("isRunning", false);
+                       Utils.ins.DelayCall(3, () =>
+                       {
+                           MoveByBot();
+                       });
+                   });
+        }
+        else // move to collect point
+        {
+            rdPos = currentGround.botMovePosGr.transform.GetChild(Random.Range(0, currentGround.botMovePosGr.transform.childCount - 1));
+
+            distance = Vector3.Distance(rdPos.transform.position, transform.position);
+            timeToMove = distance / speedMoveBot;
+
+            moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                MoveByBot();
+            });
+
+        }
+
+        SetDirToPos(rdPos);
+
+
+        return;
+
         if (_groundState == GroundStateEnum.ground_1)
         {
             //init var
-            var rdPos = gameObject.transform;
-            var distance = 1f;
-            var timeToMove = 1f;
-            if (inkTook.Count >= inkToTake) // move to endPoint
-            {
-                if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock.transform;
-                if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock.transform;
-                if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock.transform;
-
-
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
-
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                       {
-                           _anim.SetBool("isRunning", false);
-                           Utils.ins.DelayCall(3, () =>
-                           {
-                               MoveByBot();
-                           });
-                       });
-            }
-            else // move to collect point
-            {
-                rdPos = GameManager.ins.botMovePos.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
-
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
-
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    MoveByBot();
-                });
-
-            }
-
             Vector3 dir = rdPos.transform.position - transform.position;
             if (dir != Vector3.zero)
             {
@@ -215,132 +231,136 @@ public class CharacterControl : MonoBehaviour
             }
         }
 
-        if (_groundState == GroundStateEnum.ground_2)
-        {
-            //init var
-            var rdPos = gameObject.transform;
-            var distance = 1f;
-            var timeToMove = 1f;
-
-            if (inkTook.Count >= inkToTake) // move to endPoint
-            {
-                if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground2.transform;
-                if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground2.transform;
-                if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground2.transform;
-
-
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
-
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    _anim.SetBool("isRunning", false);
-                    Utils.ins.DelayCall(1.5f, () =>
-                    {
-                        MoveByBot();
-                    });
-                });
-            }
-            else // move to collect point
-            {
-                rdPos = GameManager.ins.botMovePos_Ground2.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
-
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
-
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    MoveByBot();
-                });
-
-            }
-
-            Vector3 dir = rdPos.transform.position - transform.position;
-            if (dir != Vector3.zero)
-            {
-                gameObject.transform.rotation = Quaternion.LookRotation(dir);
-                if (inkCount > 0)
-                {
-                    _anim.SetBool("isRunning", true);
-                    _anim.SetBool("isRunWith", true);
-                }
-                else
-                {
-                    _anim.SetBool("isRunWith", false);
-                    _anim.SetBool("isRunning", true);
-
-                }
-            }
-            else
-            {
-                _anim.SetBool("isRunning", false);
-            }
-        }
-
-        if (_groundState == GroundStateEnum.ground_3)
-        {
-            //init var
-            inkToTake = 5;
-
-            var rdPos = gameObject.transform;
-            var distance = 1f;
-            var timeToMove = 1f;
-
-            if (inkTook.Count >= inkToTake) // move to endPoint
-            {
-                if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground3.transform;
-                if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground3.transform;
-                if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground3.transform;
-
-
-                //rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
-
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    _anim.SetBool("isRunning", false);// finish collect 25 ink then wait at brige
-
-
-                    Utils.ins.DelayCall(2, () =>
-                    {
-                        if (GameManager.ins.isStopGame) return;
-                        rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
-                        distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                        timeToMove = distance / speedMoveBot;
-                        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove * 2.5f).SetEase(Ease.Linear).OnComplete(() =>
-                        {
-                            gameObject.transform.rotation = Quaternion.LookRotation(Vector3.zero);
-                            _anim.SetTrigger("dance");
-                            GameManager.ins.BotWin(gameObject);
-                            gameObject.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-                        });
-                        SetDirToPos(rdPos);
-
-                    });
-                    // move to end
-                });
 
 
 
 
-            }
-            else // move to collect point
-            {
-                rdPos = GameManager.ins.botMovePos_Ground3.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
 
-                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-                timeToMove = distance / speedMoveBot;
+        //if (_groundState == GroundStateEnum.ground_2)
+        //{
+        //    //init var
+        //    var rdPos = gameObject.transform;
+        //    var distance = 1f;
+        //    var timeToMove = 1f;
 
-                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    MoveByBot();
-                });
+        //    if (inkTook.Count >= inkToTake) // move to endPoint
+        //    {
+        //        if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground2.transform;
+        //        if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground2.transform;
+        //        if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground2.transform;
 
-            }
 
-            SetDirToPos(rdPos);
-        }
+        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
+        //        timeToMove = distance / speedMoveBot;
+
+        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+        //        {
+        //            _anim.SetBool("isRunning", false);
+        //            Utils.ins.DelayCall(1.5f, () =>
+        //            {
+        //                MoveByBot();
+        //            });
+        //        });
+        //    }
+        //    else // move to collect point
+        //    {
+        //        rdPos = GameManager.ins.botMovePos_Ground2.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
+
+        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
+        //        timeToMove = distance / speedMoveBot;
+
+        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+        //        {
+        //            MoveByBot();
+        //        });
+
+        //    }
+
+        //    Vector3 dir = rdPos.transform.position - transform.position;
+        //    if (dir != Vector3.zero)
+        //    {
+        //        gameObject.transform.rotation = Quaternion.LookRotation(dir);
+        //        if (inkCount > 0)
+        //        {
+        //            _anim.SetBool("isRunning", true);
+        //            _anim.SetBool("isRunWith", true);
+        //        }
+        //        else
+        //        {
+        //            _anim.SetBool("isRunWith", false);
+        //            _anim.SetBool("isRunning", true);
+
+        //        }
+        //    }
+        //    else
+        //    {
+        //        _anim.SetBool("isRunning", false);
+        //    }
+        //}
+
+        //if (_groundState == GroundStateEnum.ground_3)
+        //{
+        //    //init var
+        //    inkToTake = 5;
+
+        //    var rdPos = gameObject.transform;
+        //    var distance = 1f;
+        //    var timeToMove = 1f;
+
+        //    if (inkTook.Count >= inkToTake) // move to endPoint
+        //    {
+        //        if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground3.transform;
+        //        if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground3.transform;
+        //        if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground3.transform;
+
+
+        //        //rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
+        //        timeToMove = distance / speedMoveBot;
+
+        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+        //        {
+        //            _anim.SetBool("isRunning", false);// finish collect 25 ink then wait at brige
+
+
+        //            Utils.ins.DelayCall(2, () =>
+        //            {
+        //                if (GameManager.ins.isStopGame) return;
+        //                rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
+        //                distance = Vector3.Distance(rdPos.transform.position, transform.position);
+        //                timeToMove = distance / speedMoveBot;
+        //                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove * 2.5f).SetEase(Ease.Linear).OnComplete(() =>
+        //                {
+        //                    gameObject.transform.rotation = Quaternion.LookRotation(Vector3.zero);
+        //                    _anim.SetTrigger("dance");
+        //                    GameManager.ins.BotWin(gameObject);
+        //                    gameObject.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+        //                });
+        //                SetDirToPos(rdPos);
+
+        //            });
+        //            // move to end
+        //        });
+
+
+
+
+        //    }
+        //    else // move to collect point
+        //    {
+        //        rdPos = GameManager.ins.botMovePos_Ground3.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
+
+        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
+        //        timeToMove = distance / speedMoveBot;
+
+        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
+        //        {
+        //            MoveByBot();
+        //        });
+
+        //    }
+
+        //}
 
     }
 
@@ -422,29 +442,59 @@ public class CharacterControl : MonoBehaviour
     }
 
 
+    public void SetupCurGround()
+    {
+
+        Debug.LogError(colorType);
+        switch (currentGround.myGroundType)
+        {
+            case GroundTypeEnum.none:
+                break;
+            case GroundTypeEnum.reveal_Bridge:
+                break;
+            case GroundTypeEnum.dropInk_Bridge:
+                break;
+            case GroundTypeEnum.build_Bridge:
+                if (colorType == myIDEnum.Red) myBuildBridge = currentGround.buildBridge_Red;
+                if (colorType == myIDEnum.Blue) myBuildBridge = currentGround.buildBridge_Blue;
+                if (colorType == myIDEnum.Green) myBuildBridge = currentGround.buildBridge_Green;
+                if (colorType == myIDEnum.Pink) myBuildBridge = currentGround.buildBridge_Pink;
+
+                if (colorType == myIDEnum.Red) myBuildBridgeInkPos = currentGround.buildBridge_RedInkPos;
+                if (colorType == myIDEnum.Blue) myBuildBridgeInkPos = currentGround.buildBridge_BlueInkPos;
+                if (colorType == myIDEnum.Green) myBuildBridgeInkPos = currentGround.buildBridge_GreenInkPos;
+                if (colorType == myIDEnum.Pink) myBuildBridgeInkPos = currentGround.buildBridge_PinkInkPos;
 
 
 
-
+                break;
+            case GroundTypeEnum.final_Bridge:
+                break;
+        }
+    }
 
     public bool canPaintBridge;
     [Button]
-    public void PaintBridge()
+    public void BuildBridge()
     {
-        if (myPaintBridge.transform.localScale.z >= 1.8f)  //unlock Bridge unlock ground 3
+        if (myBuildBridge == null) return;
+
+        if (myBuildBridge.transform.localScale.z >= 2.1f)  //unlock Bridge unlock ground 3
         {
             if (isBot == false)
-                myPaintBridge.transform.GetChild(0).gameObject.SetActive(false);
-            _groundState = GroundStateEnum.ground_3;
+                myBuildBridge.transform.GetChild(0).gameObject.SetActive(false);
+            currentGroundIndex++;
             SpawnManager.ins.AddSpawn3(this);
             SpawnManager.ins.RemoveSpawn2(this);
             return;
         }
         if (canPaintBridge == false) return;
+
+
         if (timePaint == 0) timePaint = Time.timeSinceLevelLoad;
         if (Time.timeSinceLevelLoad - timePaint >= .25f)
         {
-            DropPaintBridge();
+            DropInkBuildBridge();
             timePaint = Time.timeSinceLevelLoad;
         }
 
@@ -455,31 +505,27 @@ public class CharacterControl : MonoBehaviour
 
 
 
-    public GameObject myPaintBridge;
-    public void DropPaintBridge()
+    public GameObject myBuildBridge, myBuildBridgeInkPos;
+    public void DropInkBuildBridge()
     {
         if (inkTook.Count <= 0) return;
-
+        Debug.LogError("PAINT BRIDGE" + colorType);
         var inkFlyEff = Instantiate(inkTook[inkTook.Count - 1], null, false);
         inkFlyEff.transform.position = inkTook[inkTook.Count - 1].transform.position;
         inkFlyEff.transform.rotation = inkTook[inkTook.Count - 1].transform.rotation;
         inkFlyEff.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        inkFlyEff.transform.DOMove(myPaintBridge.transform.position, 0.2f);
+        inkFlyEff.transform.DOMove(myBuildBridgeInkPos.transform.position, 0.2f);
         Utils.ins.DelayCall(0.2f, () =>
         {
             var inkDropEff = Instantiate(inkDropParticle);
             inkDropEff.transform.position = inkFlyEff.transform.position;
             Destroy(inkFlyEff);
-            var oldScale = myPaintBridge.transform.localScale;
+            var oldScale = myBuildBridge.transform.localScale;
             oldScale.z += 0.05f;
-            myPaintBridge.transform.localScale = oldScale;
-
+            myBuildBridge.transform.localScale = oldScale;
         });
         Destroy(inkTook[inkTook.Count - 1]);
         inkTook.Remove(inkTook[inkTook.Count - 1]);
-
-
-
         inkCount--;
     }
 
@@ -616,7 +662,7 @@ public class CharacterControl : MonoBehaviour
     public void UnlockPaint()//unlock ground 2
     {
         paint.transform.DOMoveY(-3, 1);
-        _groundState = GroundStateEnum.ground_2;
+        currentGroundIndex++;
         SpawnManager.ins.AddSpawn2(this);
         SpawnManager.ins.RemoveSpawn1(this);
     }

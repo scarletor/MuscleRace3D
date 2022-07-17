@@ -3217,7 +3217,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1725093141}
   m_HandleRect: {fileID: 1725093140}
   m_Direction: 0
-  m_Value: -0.00000011621321
+  m_Value: 0
   m_Size: 0.72074085
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3892,7 +3892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5006253416147675406, guid: 03ea28c98f6d5624b8043a4360880c1c, type: 3}
       propertyPath: m_Name
-      value: stickman
+      value: Stickman
       objectReference: {fileID: 0}
     - target: {fileID: -5006253416147675406, guid: 03ea28c98f6d5624b8043a4360880c1c, type: 3}
       propertyPath: m_IsActive
@@ -4285,7 +4285,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 450176582}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

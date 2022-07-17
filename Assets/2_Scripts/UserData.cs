@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class UserData : MonoBehaviour
 {
-    public static string unlockChar = "UnlockChar_";
-    public static string curChar = "curChar";
-    public static string gold = "gold_";
-    public static string curLevel = "curLevel";
+    static string unlockChar = "UnlockChar_";
+    static string curChar = "curChar";
+    static string gold = "gold_";
+    static string curLevel = "curLevel";
 
 
 

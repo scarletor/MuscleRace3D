@@ -221,9 +221,14 @@ public class UIManager : MonoBehaviour
     public GameObject homeUI;
     public void OnClickStartGame()
     {
-        CharacterControl.charGreen.StartGame();//   
-        CharacterControl.charBlue.StartGame();
-        CharacterControl.charPink.StartGame();
+        CharacterControl.charGreen.Setup();//   
+        CharacterControl.charBlue.Setup();
+        CharacterControl.charPink.Setup();
+        CharacterControl.charPlayer.Setup();
+        GameManager.ins.grounds[0].CharacterArrive(CharacterControl.charGreen);
+        GameManager.ins.grounds[0].CharacterArrive(CharacterControl.charBlue);
+        GameManager.ins.grounds[0].CharacterArrive(CharacterControl.charPink);
+        GameManager.ins.grounds[0].CharacterArrive(CharacterControl.charPlayer);
         homeUI.gameObject.SetActive(false);
     }
 
