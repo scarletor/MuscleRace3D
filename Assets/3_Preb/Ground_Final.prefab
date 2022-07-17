@@ -1052,12 +1052,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ba7943e736a5544aff361d5e92abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrived: []
   inkPrefToSpawn: []
+  arrivedChar: []
+  myGroundType: 4
   spawned: 0
   stopSpawn: 0
   inkSpawnPosGr: {fileID: 0}
   botMovePosGr: {fileID: 0}
+  posGreenUnlock: {fileID: 0}
+  posBlueUnlock: {fileID: 0}
+  posPinkUnlock: {fileID: 0}
+  buildBridge_Blue: {fileID: 0}
+  buildBridge_BlueInkPos: {fileID: 0}
+  buildBridge_Pink: {fileID: 0}
+  buildBridge_PinkInkPos: {fileID: 0}
+  buildBridge_Green: {fileID: 0}
+  buildBridge_GreenInkPos: {fileID: 0}
+  buildBridge_Red: {fileID: 0}
+  buildBridge_RedInkPos: {fileID: 0}
+  reavealBridge_Red: {fileID: 0}
+  reavealBridge_Blue: {fileID: 0}
+  reavealBridge_Green: {fileID: 0}
+  reavealBridge_Pink: {fileID: 0}
+  reavealPaint_Red: {fileID: 0}
+  reavealPaint_Blue: {fileID: 0}
+  reavealPaint_Green: {fileID: 0}
+  reavealPaint_Pink: {fileID: 0}
 --- !u!1 &1755203133201285115
 GameObject:
   m_ObjectHideFlags: 0

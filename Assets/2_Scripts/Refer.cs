@@ -19,5 +19,5 @@ public class Refer : MonoBehaviour
 
 
 
-    public GameObject redInk, blueInk, greenInk, pinkInk;
+    public GameObject redInk, blueInk, greenInk, pinkInk,whiteInk;
 }

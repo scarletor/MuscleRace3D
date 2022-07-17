@@ -54,9 +54,9 @@ public class CharacterControl : MonoBehaviour
     public Rigidbody _rigid;
     void Update()
     {
-        Paint(); //ground 1
-        BuildBridge(); //ground 2
-        LosePaint();  // ground 3
+        Paint_Update(); //ground 1
+        BuildBridge_Update(); //ground 2
+        LosePaintBridge_Update();  // ground 3
     }
     private void FixedUpdate()
     {
@@ -142,7 +142,6 @@ public class CharacterControl : MonoBehaviour
     public void ResumeTween()
     {
         _anim.SetBool("isRunning", true);
-        Debug.LogError("SET RUNBING TRUE" + colorType);
         pauseTween = false;
         killTween = false;
         canMove = true;
@@ -168,7 +167,7 @@ public class CharacterControl : MonoBehaviour
         var rdPos = gameObject.transform;
         var distance = 1f;
         var timeToMove = 1f;
-        if (inkTook.Count >= inkToTake) // move to endPoint
+        if (inkTook.Count >= inkToTake) // move to unlock bridge point
         {
             if (colorType == myIDEnum.Green) rdPos = currentGround.posGreenUnlock.transform;
             if (colorType == myIDEnum.Blue) rdPos = currentGround.posBlueUnlock.transform;
@@ -206,161 +205,7 @@ public class CharacterControl : MonoBehaviour
 
         return;
 
-        if (_groundState == GroundStateEnum.ground_1)
-        {
-            //init var
-            Vector3 dir = rdPos.transform.position - transform.position;
-            if (dir != Vector3.zero)
-            {
-                gameObject.transform.rotation = Quaternion.LookRotation(dir);
-                if (inkCount > 0)
-                {
-                    _anim.SetBool("isRunning", true);
-                    _anim.SetBool("isRunWith", true);
-                }
-                else
-                {
-                    _anim.SetBool("isRunWith", false);
-                    _anim.SetBool("isRunning", true);
 
-                }
-            }
-            else
-            {
-                _anim.SetBool("isRunning", false);
-            }
-        }
-
-
-
-
-
-
-        //if (_groundState == GroundStateEnum.ground_2)
-        //{
-        //    //init var
-        //    var rdPos = gameObject.transform;
-        //    var distance = 1f;
-        //    var timeToMove = 1f;
-
-        //    if (inkTook.Count >= inkToTake) // move to endPoint
-        //    {
-        //        if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground2.transform;
-        //        if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground2.transform;
-        //        if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground2.transform;
-
-
-        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
-        //        timeToMove = distance / speedMoveBot;
-
-        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-        //        {
-        //            _anim.SetBool("isRunning", false);
-        //            Utils.ins.DelayCall(1.5f, () =>
-        //            {
-        //                MoveByBot();
-        //            });
-        //        });
-        //    }
-        //    else // move to collect point
-        //    {
-        //        rdPos = GameManager.ins.botMovePos_Ground2.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
-
-        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
-        //        timeToMove = distance / speedMoveBot;
-
-        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-        //        {
-        //            MoveByBot();
-        //        });
-
-        //    }
-
-        //    Vector3 dir = rdPos.transform.position - transform.position;
-        //    if (dir != Vector3.zero)
-        //    {
-        //        gameObject.transform.rotation = Quaternion.LookRotation(dir);
-        //        if (inkCount > 0)
-        //        {
-        //            _anim.SetBool("isRunning", true);
-        //            _anim.SetBool("isRunWith", true);
-        //        }
-        //        else
-        //        {
-        //            _anim.SetBool("isRunWith", false);
-        //            _anim.SetBool("isRunning", true);
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        _anim.SetBool("isRunning", false);
-        //    }
-        //}
-
-        //if (_groundState == GroundStateEnum.ground_3)
-        //{
-        //    //init var
-        //    inkToTake = 5;
-
-        //    var rdPos = gameObject.transform;
-        //    var distance = 1f;
-        //    var timeToMove = 1f;
-
-        //    if (inkTook.Count >= inkToTake) // move to endPoint
-        //    {
-        //        if (colorType == myIDEnum.Green) rdPos = GameManager.ins.posGreenUnlock_Ground3.transform;
-        //        if (colorType == myIDEnum.Blue) rdPos = GameManager.ins.posBlueUnlock_Ground3.transform;
-        //        if (colorType == myIDEnum.Pink) rdPos = GameManager.ins.posPinkUnlock_Ground3.transform;
-
-
-        //        //rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
-        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
-        //        timeToMove = distance / speedMoveBot;
-
-        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-        //        {
-        //            _anim.SetBool("isRunning", false);// finish collect 25 ink then wait at brige
-
-
-        //            Utils.ins.DelayCall(2, () =>
-        //            {
-        //                if (GameManager.ins.isStopGame) return;
-        //                rdPos.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 10);
-        //                distance = Vector3.Distance(rdPos.transform.position, transform.position);
-        //                timeToMove = distance / speedMoveBot;
-        //                moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove * 2.5f).SetEase(Ease.Linear).OnComplete(() =>
-        //                {
-        //                    gameObject.transform.rotation = Quaternion.LookRotation(Vector3.zero);
-        //                    _anim.SetTrigger("dance");
-        //                    GameManager.ins.BotWin(gameObject);
-        //                    gameObject.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
-        //                });
-        //                SetDirToPos(rdPos);
-
-        //            });
-        //            // move to end
-        //        });
-
-
-
-
-        //    }
-        //    else // move to collect point
-        //    {
-        //        rdPos = GameManager.ins.botMovePos_Ground3.transform.GetChild(Random.Range(0, GameManager.ins.botMovePos.transform.childCount - 1));
-
-        //        distance = Vector3.Distance(rdPos.transform.position, transform.position);
-        //        timeToMove = distance / speedMoveBot;
-
-        //        moveTween = gameObject.transform.DOMove(rdPos.transform.position, timeToMove).SetEase(Ease.Linear).OnComplete(() =>
-        //        {
-        //            MoveByBot();
-        //        });
-
-        //    }
-
-        //}
 
     }
 
@@ -391,29 +236,31 @@ public class CharacterControl : MonoBehaviour
 
 
 
-    public float timePaint;
-    public void Paint()
+    float timePaint;
+    public void Paint_Update()
     {
-        if (canPaint == false) return;
+        if (canPaintReavealBridge == false) return;
+
         if (timePaint == 0) timePaint = Time.timeSinceLevelLoad;
         if (Time.timeSinceLevelLoad - timePaint >= .18f)
         {
-            DropPaint();
+            DropPaintRevealBridge();
             timePaint = Time.timeSinceLevelLoad;
         }
 
-
+        Debug.LogError(11);
     }
-    public void DropPaint()
+    public void DropPaintRevealBridge()
     {
         if (inkTook.Count <= 0) return;
-        foreach (Transform child in paintHideGr.transform.GetChild(0).transform)
+
+        foreach (Transform child in revealPaintGr.transform.GetChild(0).transform)
         {
-            if (child.gameObject.activeInHierarchy == true) paintHideLeft.Add(child.gameObject);
+            if (child.gameObject.activeInHierarchy == true) revealInkLeft.Add(child.gameObject);
         }
-        if (paintHideLeft[paintHideLeft.Count - 1] == null)
+        if (revealInkLeft[revealInkLeft.Count - 1] == null)
         {
-            UnlockPaint();
+            UnlockRevealBridge();
             return;
         }
 
@@ -421,16 +268,16 @@ public class CharacterControl : MonoBehaviour
         inkFlyEff.transform.position = inkTook[inkTook.Count - 1].transform.position;
         inkFlyEff.transform.rotation = inkTook[inkTook.Count - 1].transform.rotation;
         inkFlyEff.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        inkFlyEff.transform.DOMove(paintHideLeft[paintHideLeft.Count - 1].transform.position, 0.2f);
+        inkFlyEff.transform.DOMove(revealInkLeft[revealInkLeft.Count - 1].transform.position, 0.2f);
         Utils.ins.DelayCall(0.2f, () =>
         {
             var inkDropEff = Instantiate(inkDropParticle);
             inkDropEff.transform.position = inkFlyEff.transform.position;
             Destroy(inkFlyEff);
-            Destroy(paintHideLeft[paintHideLeft.Count - 1].gameObject);
-            if (paintHideLeft.Count == 0)
+            Destroy(revealInkLeft[revealInkLeft.Count - 1].gameObject);
+            if (revealInkLeft.Count == 0)
             {
-                UnlockPaint();
+                UnlockRevealBridge();
             }
         });
         Destroy(inkTook[inkTook.Count - 1]);
@@ -451,6 +298,42 @@ public class CharacterControl : MonoBehaviour
             case GroundTypeEnum.none:
                 break;
             case GroundTypeEnum.reveal_Bridge:
+
+
+                if (colorType == myIDEnum.Blue)
+                {
+                    revealPaintGr = currentGround.reavealBridge_Blue;
+                    revealPaint = currentGround.reavealPaint_Blue;
+                }
+                if (colorType == myIDEnum.Pink)
+                {
+                    revealPaintGr = currentGround.reavealBridge_Pink;
+                    revealPaint = currentGround.reavealPaint_Pink;
+
+                }
+                if (colorType == myIDEnum.Green)
+                {
+                    revealPaintGr = currentGround.reavealBridge_Green;
+                    revealPaint = currentGround.reavealPaint_Green;
+
+                }
+                if (colorType == myIDEnum.Red)
+                {
+                    revealPaintGr = currentGround.reavealBridge_Red;
+                    revealPaint = currentGround.reavealPaint_Red;
+
+                }
+
+
+
+
+
+
+
+
+
+
+
                 break;
             case GroundTypeEnum.dropInk_Bridge:
                 break;
@@ -460,10 +343,13 @@ public class CharacterControl : MonoBehaviour
                 if (colorType == myIDEnum.Green) myBuildBridge = currentGround.buildBridge_Green;
                 if (colorType == myIDEnum.Pink) myBuildBridge = currentGround.buildBridge_Pink;
 
+
                 if (colorType == myIDEnum.Red) myBuildBridgeInkPos = currentGround.buildBridge_RedInkPos;
                 if (colorType == myIDEnum.Blue) myBuildBridgeInkPos = currentGround.buildBridge_BlueInkPos;
                 if (colorType == myIDEnum.Green) myBuildBridgeInkPos = currentGround.buildBridge_GreenInkPos;
                 if (colorType == myIDEnum.Pink) myBuildBridgeInkPos = currentGround.buildBridge_PinkInkPos;
+
+
 
 
 
@@ -475,24 +361,22 @@ public class CharacterControl : MonoBehaviour
 
     public bool canPaintBridge;
     [Button]
-    public void BuildBridge()
+    public void BuildBridge_Update()
     {
         if (myBuildBridge == null) return;
 
-        if (myBuildBridge.transform.localScale.z >= 2.1f)  //unlock Bridge unlock ground 3
+        if (myBuildBridge.transform.localScale.z >= 0.5f)  //unlock Bridge unlock ground 3 config bridge size
         {
             if (isBot == false)
                 myBuildBridge.transform.GetChild(0).gameObject.SetActive(false);
-            currentGroundIndex++;
-            SpawnManager.ins.AddSpawn3(this);
-            SpawnManager.ins.RemoveSpawn2(this);
+            GoNextGround();
             return;
         }
         if (canPaintBridge == false) return;
 
 
         if (timePaint == 0) timePaint = Time.timeSinceLevelLoad;
-        if (Time.timeSinceLevelLoad - timePaint >= .25f)
+        if (Time.timeSinceLevelLoad - timePaint >= 0.25f)
         {
             DropInkBuildBridge();
             timePaint = Time.timeSinceLevelLoad;
@@ -508,8 +392,6 @@ public class CharacterControl : MonoBehaviour
     public GameObject myBuildBridge, myBuildBridgeInkPos;
     public void DropInkBuildBridge()
     {
-        if (inkTook.Count <= 0) return;
-        Debug.LogError("PAINT BRIDGE" + colorType);
         var inkFlyEff = Instantiate(inkTook[inkTook.Count - 1], null, false);
         inkFlyEff.transform.position = inkTook[inkTook.Count - 1].transform.position;
         inkFlyEff.transform.rotation = inkTook[inkTook.Count - 1].transform.rotation;
@@ -537,18 +419,21 @@ public class CharacterControl : MonoBehaviour
 
 
     public bool canLosePaint;
-    public void LosePaint()
+    public void LosePaintBridge_Update()
     {
         if (canLosePaint == false) return;
         if (timePaint == 0) timePaint = Time.timeSinceLevelLoad;
         if (Time.timeSinceLevelLoad - timePaint >= 0.3f)// fixlater 0.3
         {
 
-
             if (inkTook.Count <= 0) return;
+            var ink = inkTook[inkTook.Count - 1];
+            var inkDropEff = Instantiate(inkDropParticle);
+            inkDropEff.transform.position = ink.transform.position;
 
-            Destroy(inkTook[inkTook.Count - 1]);
-            inkTook.Remove(inkTook[inkTook.Count - 1]);
+
+            Destroy(ink);
+            inkTook.Remove(ink);
             inkCount--;
 
 
@@ -558,7 +443,25 @@ public class CharacterControl : MonoBehaviour
 
 
 
+    public void GoNextGround()
+    {
+        currentGroundIndex++;
+        currentGround.isUnlocked = true;
 
+        // reset old data ground
+        myBuildBridge = null;
+        myBuildBridgeInkPos = null;
+
+
+        //setup new ground
+        currentGround = GameManager.ins.grounds[currentGroundIndex];
+        SetupCurGround();
+
+
+
+        GameManager.ins.grounds[currentGroundIndex].CharacterArrive(this);
+
+    }
 
 
 
@@ -591,14 +494,13 @@ public class CharacterControl : MonoBehaviour
 
     }
 
-
-    public List<GameObject> paintHideLeft;
-    public GameObject paintHideGr;
+    public List<GameObject> revealInkLeft;
+    public GameObject revealPaintGr;
     [Button]
     public void Paint(GameObject ink = null, GameObject paintHideGr11 = null)
     {
         Debug.LogError("paint");
-        canPaint = true;
+        canPaintReavealBridge = true;
         inkTook.Reverse();
 
         StartCoroutine(Paint());
@@ -608,20 +510,20 @@ public class CharacterControl : MonoBehaviour
             var index = 0;
 
 
-            foreach (Transform child in paintHideGr.transform.GetChild(0).transform)
+            foreach (Transform child in revealPaintGr.transform.GetChild(0).transform)
             {
-                if (child.gameObject.activeInHierarchy == true) paintHideLeft.Add(child.gameObject);
+                if (child.gameObject.activeInHierarchy == true) revealInkLeft.Add(child.gameObject);
             }
 
             var inkTookTemp = inkTook;
             for (int i = 0; i < inkTookTemp.Count; i++)
             {
                 yield return new WaitForSeconds(.15f);
-                if (canPaint == false) yield break;
+                if (canPaintReavealBridge == false) yield break;
 
-                if (paintHideLeft.Count > index)
+                if (revealInkLeft.Count > index)
                 {
-                    inkTookTemp[i].GetComponent<MoveToPos>().posToMovePaint = paintHideLeft[index];
+                    inkTookTemp[i].GetComponent<MoveToPos>().posToMovePaint = revealInkLeft[index];
                     inkTookTemp[i].GetComponent<MoveToPos>().enabled = true;
                     Debug.LogError("remove " + i);
                     inkTook.Remove(inkTookTemp[i]);
@@ -634,37 +536,38 @@ public class CharacterControl : MonoBehaviour
 
             yield return new WaitForSeconds(2);
 
-            foreach (Transform child in paintHideGr.transform)
+            foreach (Transform child in revealPaintGr.transform)
             {
-                if (child.gameObject.activeInHierarchy == true) paintHideLeft.Add(child.gameObject);
+                if (child.gameObject.activeInHierarchy == true) revealInkLeft.Add(child.gameObject);
             }
-            if (paintHideLeft.Count == 0)
+            if (revealInkLeft.Count == 0 && currentGround.isUnlocked == false)
             {
-                UnlockPaint();
+                UnlockRevealBridge();
             }
 
         }
     }
-    public bool canPaint;
+    public bool canPaintReavealBridge;
     public void StopPaint()
     {
-        paintHideLeft.Clear();
+        revealInkLeft.Clear();
         Debug.LogError("stop paint");
-        canPaint = false;
+        canPaintReavealBridge = false;
     }
 
 
 
 
 
-    public GameObject paint;
+    public GameObject revealPaint;
     [Button]
-    public void UnlockPaint()//unlock ground 2
+    public void UnlockRevealBridge()//unlock ground 2
     {
-        paint.transform.DOMoveY(-3, 1);
-        currentGroundIndex++;
-        SpawnManager.ins.AddSpawn2(this);
-        SpawnManager.ins.RemoveSpawn1(this);
+        if (revealPaintGr.transform.parent.name == "#UNLOCKED") return;
+        revealPaintGr.transform.parent.name = "#UNLOCKED";
+        revealPaint.transform.DOMoveY(-3, 1);
+        GoNextGround();
+        Debug.LogError("UNLOCK REAVEAL" + colorType);
     }
 
 
@@ -710,18 +613,14 @@ public class CharacterControl : MonoBehaviour
     {
         inkCount = 0;
 
-        var inkToDrop = gameObject;
+        var inkToDrop = Refer.ins.whiteInk;
 
 
-        if (colorType == myIDEnum.Red) inkToDrop = SpawnManager.ins.inkBase[0];
-        if (colorType == myIDEnum.Blue) inkToDrop = SpawnManager.ins.inkBase[1];
-        if (colorType == myIDEnum.Green) inkToDrop = SpawnManager.ins.inkBase[2];
-        if (colorType == myIDEnum.Pink) inkToDrop = SpawnManager.ins.inkBase[3];
+
 
         var deleteList = new List<GameObject>();
         inkTook.ForEach(ink =>
         {
-
             var newInk = Instantiate(inkToDrop, SpawnManager.ins.gameObject.transform);
             newInk.GetComponent<Collider>().enabled = false;
             Utils.ins.DelayCall(3, () =>
@@ -748,8 +647,6 @@ public class CharacterControl : MonoBehaviour
 
 
     public bool isUnlockGround1, isUnlockGround2, isUnlockGround3;
-    public GroundStateEnum _groundState;
-
 
     public GameObject finalPaint;
     public GameObject posMoveEnd;
@@ -844,11 +741,3 @@ public class CharacterControl : MonoBehaviour
 
 }
 
-public enum GroundStateEnum
-{
-    none,
-    ground_1,
-    ground_2,
-    ground_3,
-
-}

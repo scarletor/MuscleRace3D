@@ -1788,7 +1788,6 @@ MonoBehaviour:
   canMove: 1
   isFirstMoveGround3: 0
   speedMoveBot: 0
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -1797,16 +1796,15 @@ MonoBehaviour:
   inkContainer: {fileID: 662667778}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 197195023}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide:
@@ -6402,6 +6400,7 @@ MonoBehaviour:
   blueInk: {fileID: 9041398656499749817, guid: 94d43341c9f32f44eb83936b9cb7b020, type: 3}
   greenInk: {fileID: 1472194832610517760, guid: c98b965fe2b1de347b81656463825dd0, type: 3}
   pinkInk: {fileID: 7564701842828177812, guid: 5ccf5d526167fef4d9edd763a08e17a9, type: 3}
+  whiteInk: {fileID: 1472194832610517760, guid: 207e5eba753a7014ba5260d63943eb57, type: 3}
 --- !u!4 &316250460
 Transform:
   m_ObjectHideFlags: 0
@@ -8192,7 +8191,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -8201,16 +8199,15 @@ MonoBehaviour:
   inkContainer: {fileID: 764836036}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -8578,7 +8575,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -8587,16 +8583,15 @@ MonoBehaviour:
   inkContainer: {fileID: 1208270156}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -9235,7 +9230,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -9244,16 +9238,15 @@ MonoBehaviour:
   inkContainer: {fileID: 369459348}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -19170,7 +19163,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 0
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -19179,16 +19171,15 @@ MonoBehaviour:
   inkContainer: {fileID: 0}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 0
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -24967,7 +24958,6 @@ MonoBehaviour:
   canMove: 1
   isFirstMoveGround3: 0
   speedMoveBot: 0
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -24976,16 +24966,15 @@ MonoBehaviour:
   inkContainer: {fileID: 528382965}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide:
@@ -28046,11 +28035,11 @@ MonoBehaviour:
   - groundData:
     - hasVideoLeft: 1
       hasVideoRight: 1
-      groundType: 3
+      groundType: 2
       hard: 0
     - hasVideoLeft: 1
       hasVideoRight: 1
-      groundType: 1
+      groundType: 2
       hard: 0
     - hasVideoLeft: 1
       hasVideoRight: 1
@@ -32764,7 +32753,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -32773,16 +32761,15 @@ MonoBehaviour:
   inkContainer: {fileID: 1022417024}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -33611,7 +33598,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -33620,16 +33606,15 @@ MonoBehaviour:
   inkContainer: {fileID: 1876009775}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
@@ -34794,7 +34779,6 @@ MonoBehaviour:
   canMove: 0
   isFirstMoveGround3: 0
   speedMoveBot: 6
-  timePaint: 0
   canPaintBridge: 0
   myBuildBridge: {fileID: 0}
   myBuildBridgeInkPos: {fileID: 0}
@@ -34803,16 +34787,15 @@ MonoBehaviour:
   inkContainer: {fileID: 1179568438}
   inkTook: []
   inkCount: 0
-  paintHideLeft: []
-  paintHideGr: {fileID: 0}
-  canPaint: 0
-  paint: {fileID: 0}
+  revealInkLeft: []
+  revealPaintGr: {fileID: 0}
+  canPaintReavealBridge: 0
+  revealPaint: {fileID: 0}
   inksRemove: []
   test: {fileID: 0}
   isUnlockGround1: 0
   isUnlockGround2: 0
   isUnlockGround3: 0
-  _groundState: 1
   finalPaint: {fileID: 0}
   posMoveEnd: {fileID: 0}
   finalPaintHide: []
