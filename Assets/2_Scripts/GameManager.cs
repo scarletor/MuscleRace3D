@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public static GameManager ins;
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         ins = this;
     }
 
@@ -59,10 +60,6 @@ public class GameManager : MonoBehaviour
                 child.gameObject.SetActive(false);
             }
         }
-
-
-
-
     }
 
 

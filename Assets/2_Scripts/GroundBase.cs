@@ -59,9 +59,8 @@ public class GroundBase : MonoBehaviour
     }
 
     [Button]
-    void SpawnInteval()
+    void SpawnInteval()//fixlater call every frame
     {
-        Debug.LogError("CALL SPAWN INK +" + transform.GetSiblingIndex());
         //guard
         if (inkPrefToSpawn.Count == 0) return;
         var rdPos = inkSpawnPosGr.transform.GetChild(Random.Range(0, inkSpawnPosGr.transform.childCount - 1));
@@ -86,9 +85,8 @@ public class GroundBase : MonoBehaviour
 
 
 
-    public void ChecKNumberInkSpawnedIntervals()
+    public void ChecKNumberInkSpawnedIntervals()//fix later call many time
     {
-        Debug.LogError("CHECK spawned" + gameObject.name);
         spawnedBlue = 0;
         spawnedGreen = 0;
         spawnedRed = 0;

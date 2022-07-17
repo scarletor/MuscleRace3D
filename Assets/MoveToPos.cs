@@ -23,8 +23,13 @@ public class MoveToPos : MonoBehaviour
                 transform.localEulerAngles = Vector3.zero;
                 enabled = false;
                 posToMoveBackPlayer = null;
+                if (myColorType == colorTypeEnum.key)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
+
 
 
 
@@ -60,7 +65,7 @@ public enum colorTypeEnum
 {
     none,
     red,
-    green, pink, blue,
+    green, pink, blue,key
 
 
 }

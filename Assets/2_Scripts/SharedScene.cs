@@ -18,26 +18,42 @@ public class SharedScene : MonoBehaviour
     }
 
     public GameObject topPanel;
-    public Text goldText;
-    public GameObject keyGr,goldPos;
-
+    public Text goldText, keyText;
+    public GameObject keyGr, goldPos;
+    public Image key1, key2, key3;
     void Start()
     {
         RefreshGoldText();
+        RefreshKeyText();
     }
 
     public void RefreshGoldText()
     {
         goldText.text = "" + UserData.GetGold();
     }
-
-
-    // Update is called once per frame
-    void Update()
+    public void RefreshKeyText()
     {
+        key1.color = Color.black;
+        key2.color = Color.black;
+        key3.color = Color.black;
+        if (UserData.GetCurKey() == 1)
+        {
+            key1.color = Color.white;
+        }
+        if (UserData.GetCurKey() == 2)
+        {
+            key1.color = Color.white;
+            key2.color = Color.white;
+        }
+        if (UserData.GetCurKey() >= 3)
+        {
+            key1.color = Color.white;
+            key2.color = Color.white;
+            key3.color = Color.white;
+        }
+
 
     }
-
 
     [Button]
     public void SetGold(int gold)

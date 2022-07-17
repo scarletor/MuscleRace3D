@@ -8,6 +8,7 @@ public class UserData : MonoBehaviour
     static string curChar = "curChar";
     static string gold = "gold_";
     static string curLevel = "curLevel";
+    static string curKey = "curKey";
 
 
 
@@ -22,13 +23,21 @@ public class UserData : MonoBehaviour
         goldValue += value;
         PlayerPrefs.SetInt(gold, goldValue);
     }
-
+    public static int GetCurKey()
+    {
+        return PlayerPrefs.GetInt(curKey);
+    }
+    public static void SetCurKey1More()
+    {
+        var value = GetCurKey();
+        PlayerPrefs.SetInt(curKey, value + 1);
+        SharedScene.ins.RefreshKeyText();
+    }
 
 
 
     public static bool IsUnlockedChar(string charName)
     {
-
 
         if (PlayerPrefs.GetString(unlockChar + charName) == "true")
         {

@@ -33,6 +33,18 @@ public class GetInkCollider : MonoBehaviour
             other.gameObject.name = "#_2_InkTaken_" + parent.colorType;
         }
 
+        if (other.gameObject.name.Contains("#_2_Key"))
+        {
+            if (parent.colorType == myIDEnum.Red)
+            {
+                other.GetComponent<MoveToPos>().posToMoveBackPlayer = gameObject;
+                UserData.SetCurKey1More();
+            }
+
+        }
+
+
+
         if (other.gameObject.name.Contains("#_" + parent.colorType + "_Paint"))
         {
             parent.canPaintReavealBridge = true;

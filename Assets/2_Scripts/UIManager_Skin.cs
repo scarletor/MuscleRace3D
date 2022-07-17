@@ -25,7 +25,7 @@ public class UIManager_Skin : MonoBehaviour
     public string curCharString;
     public GameObject buyBtn, currentBtn;
     public Text priceText;
-
+    public Sprite selecteting,unSelect;
 
     public void OnClickSelectCharacter(bool isSetup = false)
     {
@@ -47,9 +47,9 @@ public class UIManager_Skin : MonoBehaviour
 
         foreach (Transform child in contents.transform)
         {
-            child.transform.GetChild(0).GetComponent<Image>().color = Color.yellow;
+            child.transform.GetChild(0).GetComponent<Image>().sprite = unSelect;
         }
-        currentBtn.transform.GetChild(0).GetComponent<Image>().color = Color.green;
+        currentBtn.transform.GetChild(0).GetComponent<Image>().sprite = selecteting;
 
         characters.ForEach(go =>
         {

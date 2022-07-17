@@ -96,6 +96,16 @@ public class LevelManager : MonoBehaviour
                 vidGround.transform.position = pos;
             }
 
+
+            if (ground.hasKey)
+            {
+                var newKey = Instantiate(key, groundGr.transform);
+                pos = newKey.transform.position;
+                pos.z = index * 30;
+                newKey.transform.position = pos;
+            }
+
+
         });
 
 
@@ -104,7 +114,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public GameObject reveal_Bridge, dropInk_Bridge, build_Bridge, final_Bridge, video_BridgeLeft, video_BridgeRight, groundGr;
+    public GameObject reveal_Bridge, dropInk_Bridge, build_Bridge, final_Bridge, video_BridgeLeft, video_BridgeRight, groundGr,key;
     public int currentLevel;
 
 }
@@ -121,7 +131,7 @@ public class Level
 [Serializable]
 public class GroundLevel
 {
-    public bool hasVideoLeft, hasVideoRight;
+    public bool hasVideoLeft, hasVideoRight,hasKey;
 
     public GroundTypeEnum groundType;
     public float hard;

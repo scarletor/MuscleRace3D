@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 449.80707, y: 997}
+  m_AnchoredPosition: {x: 419.20715, y: 997}
   m_SizeDelta: {x: 314.4142, y: 93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &351853284
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 1382842386}
   - component: {fileID: 1382842385}
   m_Layer: 5
-  m_Name: Key1 (1)
+  m_Name: Key2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,7 +446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 458, y: 996.8}
+  m_AnchoredPosition: {x: 427.4001, y: 996.8}
   m_SizeDelta: {x: 160, y: 70.597}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1447942273
@@ -525,7 +525,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 342.69998, y: 997}
+  m_AnchoredPosition: {x: 312.1, y: 997}
   m_SizeDelta: {x: 66, y: 71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512831316
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 1608717319}
   - component: {fileID: 1608717318}
   m_Layer: 5
-  m_Name: Key1 (2)
+  m_Name: Key3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -503.3, y: 1001}
+  m_AnchoredPosition: {x: -362.7, y: 1001}
   m_SizeDelta: {x: 58, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608717318
@@ -675,7 +675,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -361.7, y: 1001}
+  m_AnchoredPosition: {x: -502.9, y: 1001}
   m_SizeDelta: {x: 58, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862826726
@@ -864,7 +864,7 @@ GameObject:
   - component: {fileID: 2079566965}
   - component: {fileID: 2079566964}
   m_Layer: 0
-  m_Name: sharedScene
+  m_Name: SharedScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,8 +884,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topPanel: {fileID: 2000877477}
   goldText: {fileID: 1447942273}
+  keyText: {fileID: 0}
   keyGr: {fileID: 362430581}
   goldPos: {fileID: 1512831314}
+  key1: {fileID: 1862826726}
+  key2: {fileID: 1382842385}
+  key3: {fileID: 1608717318}
 --- !u!4 &2079566965
 Transform:
   m_ObjectHideFlags: 0
