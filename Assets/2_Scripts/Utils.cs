@@ -114,7 +114,7 @@ public class Utils : MonoBehaviour
 
 
     [Button]
-    public void IncreaseNumEff(Text text,int value)
+    public void IncreaseNumEff(Text text, int value)
     {
         var curValue = Int32.Parse(text.text);
 
@@ -126,4 +126,16 @@ public class Utils : MonoBehaviour
                text.text = "" + curValue;
            });
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
